@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year 2026 Countdown - Sri Lanka</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Animated gradient background */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .animated-bg {
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e293b, #0c4a6e);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+        }
+        
+        /* Floating orbs */
+        @keyframes float-orb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: float-orb 20s ease-in-out infinite;
+        }
+        
+        /* Glowing cards */
+        @keyframes glow-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 15px rgba(251, 191, 36, 0.15),
+                            0 0 30px rgba(251, 191, 36, 0.05),
+                            inset 0 0 10px rgba(251, 191, 36, 0.05);
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(251, 191, 36, 0.25),
+                            0 0 40px rgba(251, 191, 36, 0.1),
+                            inset 0 0 15px rgba(251, 191, 36, 0.1);
+            }
+        }
+        
+        .glow-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            animation: glow-pulse 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glow-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(251, 191, 36, 0.1),
+                transparent
+            );
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* Number animation */
+        @keyframes number-pop {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .number {
+            animation: number-pop 1s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.25),
+                         0 0 30px rgba(251, 191, 36, 0.15);
+        }
+        
+        /* Sparkles */
+        @keyframes sparkle-twinkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle-twinkle 2s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Title glow */
+        @keyframes title-glow {
+            0%, 100% { 
+                text-shadow: 0 0 10px rgba(251, 191, 36, 0.25),
+                             0 0 20px rgba(251, 191, 36, 0.15),
+                             0 0 30px rgba(251, 191, 36, 0.1);
+            }
+            50% { 
+                text-shadow: 0 0 15px rgba(251, 191, 36, 0.4),
+                             0 0 30px rgba(251, 191, 36, 0.25),
+                             0 0 45px rgba(251, 191, 36, 0.15);
+            }
+        }
+        
+        .title-glow {
+            animation: title-glow 2s ease-in-out infinite;
+        }
+        
+        /* Fireworks */
+        @keyframes firework {
+            0% { transform: translate(0, 0) scale(0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
+        }
+        
+        .firework {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: firework 1.5s ease-out forwards;
+        }
+        
+        /* Confetti */
+        @keyframes confetti-fall {
+            to { 
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            animation: confetti-fall 4s linear forwards;
+        }
+        
+        /* Fade in animation */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fade-in-up 1s ease-out forwards;
+        }
+        
+        /* Hover effect for cards */
+        .glow-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+    </style>
+</head>
+<body class="animated-bg min-h-screen flex items-center justify-center overflow-hidden relative">
+    
+    <!-- Floating Orbs Background -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="orb w-96 h-96 bg-purple-500 absolute top-10 left-10" style="animation-delay: 0s;"></div>
+        <div class="orb w-80 h-80 bg-blue-500 absolute bottom-20 right-20" style="animation-delay: 3s;"></div>
+        <div class="orb w-72 h-72 bg-amber-500 absolute top-1/2 left-1/2" style="animation-delay: 6s;"></div>
+        <div class="orb w-64 h-64 bg-pink-500 absolute bottom-10 left-1/4" style="animation-delay: 9s;"></div>
+    </div>
+    
+    <!-- Sparkles -->
+    <div id="sparkles" class="absolute inset-0 pointer-events-none"></div>
+    
+    <!-- Main Container -->
+    <div class="max-w-7xl w-full mx-auto px-6 py-12 z-10">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-20 fade-in-up">
+            <div class="inline-block">
+                <div class="text-sm font-semibold tracking-[0.3em] text-amber-400 mb-4 uppercase">
+                    Welcome to the Future
+                </div>
+                <h1 class="text-8xl md:text-9xl lg:text-[12rem] font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-200 title-glow mb-6 leading-none">
+                    2026
+                </h1>
+                <div class="flex items-center justify-center gap-4 text-white/80">
+                    <div class="h-px w-12 bg-gradient-to-r from-transparent to-amber-400"></div>
+                    <span class="text-xl font-light tracking-wide">Sri Lanka Time Zone</span>
+                    <span class="text-3xl">🇱🇰</span>
+                    <div class="h-px w-12 bg-gradient-to-l from-transparent to-amber-400"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Countdown Display -->
+        <div id="countdown" class="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16 fade-in-up" style="animation-delay: 0.2s;">
+            <div class="glow-card rounded-3xl p-10 text-center transform transition-all duration-300">
+                <div id="days" class="number text-7xl md:text-8xl font-bold text-white mb-3">00</div>
+                <div class="text-base font-semibold tracking-[0.2em] text-amber-300 uppercase">Days</div>
+                <div class="absolute top-2 right-2 w-2 h-2 bg-amber-400 rounded-full animate-ping"></div>
+            </div>
+            <div class="glow-card rounded-3xl p-10 text-center transform transition-all duration-300">
+                <div id="hours" class="number text-7xl md:text-8xl font-bold text-white mb-3">00</div>
+                <div class="text-base font-semibold tracking-[0.2em] text-amber-300 uppercase">Hours</div>
+                <div class="absolute top-2 right-2 w-2 h-2 bg-amber-400 rounded-full animate-ping"></div>
+            </div>
+            <div class="glow-card rounded-3xl p-10 text-center transform transition-all duration-300">
+                <div id="minutes" class="number text-7xl md:text-8xl font-bold text-white mb-3">00</div>
+                <div class="text-base font-semibold tracking-[0.2em] text-amber-300 uppercase">Minutes</div>
+                <div class="absolute top-2 right-2 w-2 h-2 bg-amber-400 rounded-full animate-ping"></div>
+            </div>
+            <div class="glow-card rounded-3xl p-10 text-center transform transition-all duration-300">
+                <div id="seconds" class="number text-7xl md:text-8xl font-bold text-white mb-3">00</div>
+                <div class="text-base font-semibold tracking-[0.2em] text-amber-300 uppercase">Seconds</div>
+                <div class="absolute top-2 right-2 w-2 h-2 bg-amber-400 rounded-full animate-ping"></div>
+            </div>
+        </div>
+
+        <!-- Message Section -->
+        <div class="text-center fade-in-up" style="animation-delay: 0.4s;">
+            <div id="message" class="inline-block">
+                <div class="glow-card rounded-2xl px-10 py-6">
+                    <p class="text-2xl md:text-3xl text-white font-light tracking-wide"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Container -->
+    <div id="celebration" class="hidden fixed inset-0 flex items-center justify-center z-50 pointer-events-none animated-bg">
+        <div class="text-center px-6">
+            <div class="mb-12">
+                <div class="text-6xl md:text-8xl mb-8">🎉</div>
+                <h2 class="text-7xl md:text-9xl lg:text-[10rem] font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-200 title-glow mb-12 leading-none">
+                    Happy New Year
+                </h2>
+                <div class="text-9xl md:text-[12rem] font-display font-black text-white title-glow mb-12">
+                    2026
+                </div>
+            </div>
+            <div class="glow-card rounded-3xl px-16 py-10 inline-block mb-10">
+                <p class="text-4xl md:text-6xl font-light text-amber-300">
+                    සුභ අලුත් අවුරුද්දක් වේවා
+                </p>
+            </div>
+            <p class="text-2xl text-white/80 font-light tracking-wide">
+                Wishing you prosperity, health, and endless joy
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Create sparkles
+        const sparklesContainer = document.getElementById('sparkles');
+        for (let i = 0; i < 80; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            sparkle.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            sparklesContainer.appendChild(sparkle);
+        }
+
+        // Countdown logic
+        const newYear2026 = new Date('2026-01-01T00:00:00+05:30').getTime();
+        let celebrationStarted = false;
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = newYear2026 - now;
+
+            if (distance < 0 && !celebrationStarted) {
+                celebrationStarted = true;
+                startCelebration();
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            const messageEl = document.getElementById('message').querySelector('p');
+            if (days === 0 && hours === 0 && minutes === 0) {
+                messageEl.textContent = `✨ ${seconds} seconds to midnight ✨`;
+            } else if (days === 0 && hours === 0) {
+                messageEl.textContent = '⏰ Final countdown begins';
+            } else if (days === 0) {
+                messageEl.textContent = '🌟 Less than a day remaining';
+            } else if (days === 1) {
+                messageEl.textContent = '🎊 Tomorrow the celebration begins';
+            } else {
+                messageEl.textContent = `🎆 ${days} days until the new year`;
+            }
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#fbbf24', '#f59e0b', '#d97706', '#fcd34d', '#ffffff', '#fde047'];
+            const particles = 50;
+            
+            for (let i = 0; i < particles; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = x + 'px';
+                firework.style.top = y + 'px';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                firework.style.backgroundColor = color;
+                firework.style.boxShadow = `0 0 15px ${color}`;
+                
+                const angle = (Math.PI * 2 * i) / particles;
+                const velocity = 70 + Math.random() * 70;
+                firework.style.setProperty('--x', Math.cos(angle) * velocity + 'px');
+                firework.style.setProperty('--y', Math.sin(angle) * velocity + 'px');
+                
+                document.body.appendChild(firework);
+                
+                setTimeout(() => firework.remove(), 1500);
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#fbbf24', '#f59e0b', '#d97706', '#fcd34d', '#ffffff', '#fde047'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-20px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    confetti.style.animationDelay = (Math.random() * 0.5) + 's';
+                    confetti.style.opacity = Math.random() * 0.5 + 0.5;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 7000);
+                }, i * 40);
+            }
+        }
+
+        function startCelebration() {
+            document.getElementById('countdown').classList.add('hidden');
+            document.getElementById('message').classList.add('hidden');
+            document.getElementById('celebration').classList.remove('hidden');
+            
+            // Continuous fireworks
+            setInterval(() => {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight * 0.7;
+                createFirework(x, y);
+            }, 400);
+
+            // Continuous confetti
+            setInterval(() => {
+                createConfetti();
+            }, 2000);
+            
+            // Initial burst
+            createConfetti();
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    createFirework(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight * 0.6
+                    );
+                }, i * 120);
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
